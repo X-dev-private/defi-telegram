@@ -1,8 +1,11 @@
 // Importar os módulos necessários
 const express = require('express');
 const bodyParser = require('body-parser');
-const fetch = require('node-fetch');
 require('dotenv').config(); // Importar e configurar o dotenv
+
+// Importar node-fetch de forma dinâmica
+const fetch = (...args) =>
+  import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 // Configurar o servidor Express
 const app = express();
@@ -93,7 +96,7 @@ app.post('/api/send-message', async (req, res) => {
 
 // Configurar o webhook ao iniciar o servidor
 const setWebhook = async () => {
-  const webhookUrl = `https://defi-telegram.vercel.app/webhook`; // Certifique-se de que este seja o endpoint correto
+  const webhookUrl = `defi-telegram.vercel.app`; // Certifique-se de que este seja o endpoint correto
 
   try {
     const response = await fetch(`${TELEGRAM_API}/setWebhook`, {
