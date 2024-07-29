@@ -18,6 +18,8 @@ let chatId = null;
 app.post('/webhook', (req, res) => {
   const { message } = req.body;
 
+  console.log('Mensagem recebida:', message); // Log da mensagem recebida
+
   if (message) {
     chatId = message.chat.id;
     const text = message.text;
@@ -91,7 +93,7 @@ app.post('/api/send-message', async (req, res) => {
 
 // Configurar o webhook ao iniciar o servidor
 const setWebhook = async () => {
-  const webhookUrl = `https://seu-dominio.com/webhook`; // Troque pelo seu domínio real
+  const webhookUrl = `https://defi-telegram.vercel.app/webhook`; // Certifique-se de que este seja o endpoint correto
 
   try {
     const response = await fetch(`${TELEGRAM_API}/setWebhook`, {
